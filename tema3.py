@@ -7,10 +7,6 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# ============================================================
-# BAZA DE DATE — PostgreSQL (Railway) sau SQLite (local)
-# ============================================================
-
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 def get_conn():
@@ -83,7 +79,7 @@ def init_db():
 
 def db_query(query, args=(), fetchall=False, fetchone=False, lastrowid=False):
     if DATABASE_URL:
-        # PostgreSQL
+      
         query_pg = query.replace("?", "%s")
         if lastrowid:
             query_pg = query_pg.rstrip() + " RETURNING id"
@@ -102,7 +98,7 @@ def db_query(query, args=(), fetchall=False, fetchone=False, lastrowid=False):
         conn.close()
         return result
     else:
-        # SQLite local
+      
         import sqlite3
         conn = sqlite3.connect("iluminat_public.db")
         conn.row_factory = sqlite3.Row
@@ -117,10 +113,6 @@ def db_query(query, args=(), fetchall=False, fetchone=False, lastrowid=False):
         conn.commit()
         conn.close()
         return result
-
-# ============================================================
-# API EXTERN 1 — Sunrise-Sunset (ora apus/rasarit, Iasi)
-# ============================================================
 
 def get_sunrise_sunset():
     try:
@@ -147,9 +139,6 @@ def get_sunrise_sunset():
     except Exception as e:
         return {"eroare": str(e)}
 
-# ============================================================
-# API EXTERN 2 — Open-Meteo (vreme curenta, Iasi)
-# ============================================================
 
 def get_weather():
     try:
@@ -183,9 +172,7 @@ def get_weather():
     except Exception as e:
         return {"eroare": str(e)}
 
-# ============================================================
-# HTML INTERFATA WEB CLIENT
-# ============================================================
+
 
 HTML_INTERFACE = r"""
 <!DOCTYPE html>
@@ -414,9 +401,7 @@ loadDate();
 </html>
 """
 
-# ============================================================
-# RUTE REST API
-# ============================================================
+
 
 @app.route('/')
 def index():
@@ -458,9 +443,6 @@ def delete_item(id_item):
     db_query("DELETE FROM masuratori WHERE id = ?", (id_item,))
     return jsonify({"rezultat": "Sters din DB"}), 200
 
-# ============================================================
-# RUTE API EXTERNE
-# ============================================================
 
 @app.route('/api/extern/soare', methods=['GET'])
 def extern_soare():
@@ -478,7 +460,6 @@ def extern_dashboard():
         "surse": ["api.sunrise-sunset.org", "api.open-meteo.com"]
     }), 200
 
-# ============================================================
 
 if __name__ == '__main__':
     init_db()
