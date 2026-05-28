@@ -352,10 +352,10 @@ async function loadDate() {
   const data = await res.json();
   const tbody = document.getElementById('tbody');
   tbody.innerHTML = '';
-  data.forEach(m => {
+  data.forEach((m.index) => {
     tbody.innerHTML += `
       <tr>
-        <td style="color:var(--muted)">#${m.id}</td>
+        <td style="color:var(--muted)">#${id}</td>
         <td class="senzor-name">${m.senzor}</td>
         <td style="color:var(--muted)">${m.tip || '—'}</td>
         <td class="valoare">${m.valoare} </td>
