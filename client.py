@@ -8,7 +8,7 @@ def test_api():
     print("   TEST API — SISTEM ILUMINAT PUBLIC IAȘI")
     print("=" * 50)
 
-    # ── TEST API-URI EXTERNE ──
+   
     print("\n[A] GET — API Extern 1: Sunrise-Sunset")
     r = requests.get(f"{URL_EXT}/soare")
     print("Status:", r.status_code)
@@ -19,7 +19,7 @@ def test_api():
     print("Status:", r.status_code)
     print("Raspuns:", r.json())
 
-    # ── TEST REST API INTERN ──
+   
     print("\n[1] POST — Adaugare masuratore")
     r = requests.post(URL, json={
         "senzor": "Stalp_Test_01",
