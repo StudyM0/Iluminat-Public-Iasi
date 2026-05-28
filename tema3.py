@@ -373,23 +373,37 @@ async function loadDate() {
 }
 
 async function addItem() {
-  const s  = document.getElementById('inp-senzor').value.trim();
+  const s  = document.getElementById('inp-senzor').value;
   const v  = document.getElementById('inp-valoare').value;
   const st = document.getElementById('inp-status').value;
-  
-  if (s.includes(' ')) {
-    return alert('ID-ul stâlpului poate conține spații!');
+
+  if (s.trim() === '') {
+    alert('Introdu ID-ul stâlpului!');
+    return;
+  }
+
+  if (/\s/.test(s)) {
+    alert('ID-ul stâlpului nu poate conține spații!');
+    return;
   }
 
   await fetch('/api/masuratori', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify({
       senzor: s,
       valoare: parseFloat(v),
       status: st
     })
   });
+
+  document.getElementById('inp-senzor').value  = '';
+  document.getElementById('inp-valoare').value = '';
+
+  loadDate();
+}
 
   document.getElementById('inp-senzor').value  = '';
   document.getElementById('inp-valoare').value = '';
