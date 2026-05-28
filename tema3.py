@@ -376,14 +376,19 @@ async function addItem() {
   const s  = document.getElementById('inp-senzor').value.trim();
   const v  = document.getElementById('inp-valoare').value;
   const st = document.getElementById('inp-status').value;
-  if (!s || !v) return alert('Completează toate câmpurile!');
+
+    
+  if (s.includes(' ')) {
+    return alert('ID-ul stâlpului nu poate conține spații!');
+  }
+
   await fetch('/api/masuratori', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ senzor: s, valoare: parseFloat(v), status: st })
+
   });
+
   document.getElementById('inp-senzor').value  = '';
   document.getElementById('inp-valoare').value = '';
+
   loadDate();
 }
 
