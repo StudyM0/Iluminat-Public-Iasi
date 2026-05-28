@@ -376,13 +376,9 @@ async function addItem() {
   const s  = document.getElementById('inp-senzor').value.trim();
   const v  = document.getElementById('inp-valoare').value;
   const st = document.getElementById('inp-status').value;
-
-  if (!s || !v)
-    return alert('Completează toate câmpurile!');
-
   
   if (s.includes(' ')) {
-    return alert('ID-ul stâlpului nu poate conține spații!');
+    return alert('ID-ul stâlpului poate conține spații!');
   }
 
   await fetch('/api/masuratori', {
