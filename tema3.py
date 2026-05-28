@@ -383,7 +383,7 @@ async function addItem() {
   }
 
   if (/\s/.test(s)) {
-    alert('ID-ul stâlpului nu poate conține spații!');
+    alert('ID-ul stâlpului poate conține spații!');
     return;
   }
 
